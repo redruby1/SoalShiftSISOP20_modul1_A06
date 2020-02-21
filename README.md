@@ -2,13 +2,16 @@
 
 ## Soal 1
 Whits adalah seorang mahasiswa teknik informatika. Dia mendapatkan tugas praktikum untuk membuat laporan berdasarkan data yang ada pada file “Sample-Superstore.tsv”.
+
 a. Tentukan wilayah bagian (region) mana yang memiliki keuntungan (profit) paling sedikit
-b. Tampilkan 2 negara bagian (state) yang memiliki keuntungan (profit) paling                  sedikit berdasarkan hasil poin a 
+
+b. Tampilkan 2 negara bagian (state) yang memiliki keuntungan (profit) paling sedikit berdasarkan hasil poin a
+
 c. Tampilkan 10 produk (product name) yang memiliki keuntungan (profit) paling sedikit berdasarkan 2 negara bagian (state) hasil poin b
 
 **Jawab:** 
 
-a. Tentukan wilayah bagian (region) mana yang memiliki keuntungan (profit) paling sedikit
+**a. Tentukan wilayah bagian (region) mana yang memiliki keuntungan (profit) paling sedikit**
 
 ```
 awk -F'\t' 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part | sort -g | awk -F'\t' '{print $2}' | head -1
@@ -19,7 +22,7 @@ awk -F'\t' 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Supersto
  - ``` sort -g ``` untuk mengurutkan profit secara ascending
  - ``` awk -F'\t' '{print $2}' | head -1 ``` mencetak nama region yang memiliki profit terkecil (``` head -1 ``` menunjukkan baris paling atas)
  
- b. Tampilkan 2 negara bagian (state) yang memiliki keuntungan (profit) paling                  sedikit berdasarkan hasil poin a
+ **b. Tampilkan 2 negara bagian (state) yang memiliki keuntungan (profit) paling sedikit berdasarkan hasil poin a**
  ```
  awk -F'\t' '{if($13=="Central") a[$11]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part | sort -g | awk -F',' '{print $2}' | head -2
  ```
@@ -27,7 +30,7 @@ awk -F'\t' 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Supersto
  - ``` sort -g ``` untuk mengurutkan profit secara ascending
  - ``` awk -F'\t' '{print $2}' | head -2 ``` mencetak 2 nama region yang memiliki profit terkecil (``` head -2 ``` menunjukkan 2 baris paling atas)
 
-c. Tampilkan 10 produk (product name) yang memiliki keuntungan (profit) paling sedikit berdasarkan 2 negara bagian (state) hasil poin b
+**c. Tampilkan 10 produk (product name) yang memiliki keuntungan (profit) paling sedikit berdasarkan 2 negara bagian (state) hasil poin b**
 ```
 awk -F'\t' '{if($13=="Central" && ($11=="Texas" || $11=="Illinois")) a[$17]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part | sort -g | awk -F',' '{print $2}' | head -10
 ```
