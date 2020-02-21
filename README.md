@@ -38,7 +38,7 @@ awk -F'\t' '{if($13=="Central" && ($11=="Texas" || $11=="Illinois")) a[$17]+=$21
  -  ``` sort -g ``` untuk mengurutkan profit secara ascending
  - ``` awk -F'\t' '{print $2}' | head -10 ``` mencetak 10 nama produk yang memiliki profit terkecil (``` head -10 ``` menunjukkan 10 baris paling atas)
 
-> Full code [soal1.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal1.sh)
+> Full code [soal1.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal1/soal1.sh)
 
 
 
