@@ -63,7 +63,7 @@ Setelah itu lakukan pemindahan semua gambar yang tersisa kedalam folder ./kenang
 ```
 for file in $(fdupes -r -f $dir/downloads | grep -v '^$')
 do
-        mv $file $dir/duplicate/duplicate_$((n++))
+        mv $file $dir/duplicate/duplicate_$((a++))
 done
 
 for data in  $(ls $dir/downloads)
@@ -76,20 +76,13 @@ cp wget.log wget.log.bak
 ```
 
  - ``` fdupes -r -f $dir/downloads ``` mencari file yang identik di folder *downloads*
- - ``` mv $file $dir/duplicate/duplicate_$((n++)) ``` memindahkan file identik ke folder *duplicate*
+ - ``` mv $file $dir/duplicate/duplicate_$((a++)) ``` memindahkan file identik ke folder *duplicate*
  - ``` mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++)) ``` memindahkan sisa file ke folder *kenangan*
  - ``` grep "Location" $dir/wget.log >> $dir/location.log ``` memindahkan log yang berisi *Location*
  - ``` cp wget.log wget.log.bak ``` untuk backup log dari *wget.log* ke *wget.log.bak*
  
 > Full code [soal3.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal3/soal3.sh)
 
-## Kendala
-
- - Soal 3
- 
- File tidak dapat pindah ke folder *Kenangan*
- 
- Belum backup ke ".log.bak"
 
 
 
