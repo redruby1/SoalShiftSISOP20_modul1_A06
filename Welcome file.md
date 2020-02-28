@@ -68,18 +68,18 @@ done
 
 for data in  $(ls $dir/downloads)
 do
-        mv $data $dir/kenangan/kenangan_$((i++))
+        mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++))
 done
 
 grep "Location" $dir/wget.log >> $dir/location.log
 cp wget.log wget.log.bak
 ```
 
- - ``` fdupes -r -f $dir/downloads ``` mencari file yang identik
+ - ``` fdupes -r -f $dir/downloads ``` mencari file yang identik di folder *downloads*
  - ``` mv $file $dir/duplicate/duplicate_$((n++)) ``` memindahkan file identik ke folder *duplicate*
- - ``` mv $data $dir/kenangan/kenangan_$((i++)) ``` memindahkan sisa file ke folder *kenangan*
+ - ``` mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++)) ``` memindahkan sisa file ke folder *kenangan*
  - ``` grep "Location" $dir/wget.log >> $dir/location.log ``` memindahkan log yang berisi *Location*
- - ``` cp wget.log wget.log.bak ```
+ - ``` cp wget.log wget.log.bak ``` untuk backup log dari *wget.log* ke *wget.log.bak*
 > Full code [soal3.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal3/soal3.sh)
 
 
@@ -87,5 +87,5 @@ cp wget.log wget.log.bak
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODYyOTIwNzgzXX0=
+eyJoaXN0b3J5IjpbLTQ1NDkxMDgxOF19
 -->
