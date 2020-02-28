@@ -22,9 +22,6 @@
 #
 # m h  dom mon dow   command
 
-#0 0-14,19-23 * * * ls /home/anisa/Downloads/ > /home/anisa/log/$(date `+%Y%m%d$
-#5 0-14,19-23 * * * ls /home/anisa/Downloads/ > /home/anisa/log/`date`.log
-
 ####################################
 #Modul 1
 
