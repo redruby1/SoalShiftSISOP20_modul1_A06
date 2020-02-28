@@ -14,21 +14,21 @@ c. Tampilkan 10 produk (product name) yang memiliki keuntungan (profit) paling s
 **a. Tentukan wilayah bagian (region) mana yang memiliki keuntungan (profit) paling sedikit**
 
 ```
-awk -F'\t' 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part | sort -g | awk -F'\t' '{print $2}' | head -1
+awk -F'\t' 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part | sort -g | awk -F',' '{print $2}' | head -1
 ```
  - ``` awk -F'\t' ``` untuk membaca data dan memisahkan antarkolom menggunakan 'tab'
  - ``` NR>1 ``` agar baris pertama (berisi nama kolom) tidak ikut terbaca
- - ``` 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part ``` memasukkan data nama region ke index *array a* dan data profit menjadi nilainya. Nama region yang sama akan tersimpan di index yang sama kemudian mencetak jumlah profit ``` a[i] ``` dan nama region ``` i ```
+ - ``` 'NR>1{a[$13]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part ``` memasukkan data nama region ke index *array a* dan data profit menjadi nilainya. Nama region yang sama akan tersimpan di index yang sama kemudian mencetak jumlah profit ``` a[i] ``` dan nama region ``` i ```
  - ``` sort -g ``` untuk mengurutkan profit secara ascending
- - ``` awk -F'\t' '{print $2}' | head -1 ``` mencetak nama region yang memiliki profit terkecil (``` head -1 ``` menunjukkan baris paling atas)
+ - ``` awk -F',' '{print $2}' | head -1 ``` mencetak nama region yang memiliki profit terkecil (``` head -1 ``` menunjukkan baris paling atas)
  
  **b. Tampilkan 2 negara bagian (state) yang memiliki keuntungan (profit) paling sedikit berdasarkan hasil poin a**
  ```
- awk -F'\t' '{if($13=="Central") a[$11]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part | sort -g | awk -F',' '{print $2}' | head -2
+ awk -F'\t' '{if($13=="Central") a[$11]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part | sort -g | awk -F',' '{print $2}' | head -2
  ```
- - Region hasil *a* yaitu *Central* sehingga ``` '{if($13=="Central") a[$11]+=$21} END{for(i in a) print a[i]"\t",i}' Sample-Superstore.tsv.part ``` memilih data state dengan region *Central* dan disimpan di index *array a* dan data profit menjadi nilainya. Nama state yang sama akan tersimpan di index yang sama kemudian mencetak jumlah profit ``` a[i] ``` dan nama state ``` i ```
+ - Region hasil *a* yaitu *Central* sehingga ``` '{if($13=="Central") a[$11]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part ``` memilih data state dengan region *Central* dan disimpan di index *array a* dan data profit menjadi nilainya. Nama state yang sama akan tersimpan di index yang sama kemudian mencetak jumlah profit ``` a[i] ``` dan nama state ``` i ```
  - ``` sort -g ``` untuk mengurutkan profit secara ascending
- - ``` awk -F'\t' '{print $2}' | head -2 ``` mencetak 2 nama region yang memiliki profit terkecil (``` head -2 ``` menunjukkan 2 baris paling atas)
+ - ``` awk -F',' '{print $2}' | head -2 ``` mencetak 2 nama region yang memiliki profit terkecil (``` head -2 ``` menunjukkan 2 baris paling atas)
 
 **c. Tampilkan 10 produk (product name) yang memiliki keuntungan (profit) paling sedikit berdasarkan 2 negara bagian (state) hasil poin b**
 ```
@@ -36,7 +36,7 @@ awk -F'\t' '{if($13=="Central" && ($11=="Texas" || $11=="Illinois")) a[$17]+=$21
 ```
  - State hasil *b* yaitu *Texas* dan *Illinois* sehingga ``` '{if($13=="Central" && ($11=="Texas" || $11=="Illinois")) a[$17]+=$21} END{for(i in a) print a[i]",",i}' Sample-Superstore.tsv.part ``` memilih data produk dengan region *Central* dan statenya *Texas* atau *Illinois* dan kemudian disimpan di index *array a* dan data profit menjadi nilainya. Nama produk yang sama akan tersimpan di index yang sama kemudian mencetak jumlah profit ``` a[i] ``` dan nama produk ``` i ```
  -  ``` sort -g ``` untuk mengurutkan profit secara ascending
- - ``` awk -F'\t' '{print $2}' | head -10 ``` mencetak 10 nama produk yang memiliki profit terkecil (``` head -10 ``` menunjukkan 10 baris paling atas)
+ - ``` awk -F',' '{print $2}' | head -10 ``` mencetak 10 nama produk yang memiliki profit terkecil (``` head -10 ``` menunjukkan 10 baris paling atas)
 
 > Full code [soal1.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal1/soal1.sh)
 
@@ -68,25 +68,22 @@ done
 
 for data in  $(ls $dir/downloads)
 do
-        mv $data $dir/kenangan/kenangan_$((i++))
+        mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++))
 done
 
 grep "Location" $dir/wget.log >> $dir/location.log
+cp wget.log wget.log.bak
 ```
 
- - ``` fdupes -r -f $dir/downloads ``` mencari file yang identik
+ - ``` fdupes -r -f $dir/downloads ``` mencari file yang identik di folder *downloads*
  - ``` mv $file $dir/duplicate/duplicate_$((n++)) ``` memindahkan file identik ke folder *duplicate*
- - ``` mv $data $dir/kenangan/kenangan_$((i++)) ``` memindahkan sisa file ke folder *kenangan*
+ - ``` mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++)) ``` memindahkan sisa file ke folder *kenangan*
  - ``` grep "Location" $dir/wget.log >> $dir/location.log ``` memindahkan log yang berisi *Location*
+ - ``` cp wget.log wget.log.bak ``` untuk backup log dari *wget.log* ke *wget.log.bak*
+ 
 > Full code [soal3.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal3/soal3.sh)
 
-## Kendala
 
- - Soal 3
- 
- File tidak dapat pindah ke folder *Kenangan*
- 
- Belum backup ke ".log.bak"
 
 
 
