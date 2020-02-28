@@ -9,12 +9,13 @@ done
 
 for file in $(fdupes -r -f $dir/downloads | grep -v '^$')
 do
-        mv $file $dir/duplicate/duplicate_$((n++))
+        mv $file $dir/duplicate/duplicate_$((a++))
 done
 
 for data in  $(ls $dir/downloads)
 do
-        mv $data $dir/kenangan/kenangan_$((i++))
+        mv $dir/downloads/$data $dir/kenangan/kenangan_$((i++))
 done
 
 grep "Location" $dir/wget.log >> $dir/location.log
+cp wget.log wget.log.bak
