@@ -11,7 +11,7 @@ done
 
 folder=`pwd`
 
-echo Masukkan Nama File yang Diinginkan
+echo "Masukkan Nama File yang Diinginkan"
 read judul
 
 if [[ $judul =~ ^[+-]?[a-zA-Z]+$ ]]; 
