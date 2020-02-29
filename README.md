@@ -47,7 +47,7 @@ Idenya adalah kalian
 **a. Membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf besar, huruf kecil, dan angka**
 
 ```
-password = $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
 
 re=[0-9a-zA-Z]+
 
@@ -78,7 +78,7 @@ Jika password belum teridiri dari satu alphabet kecil, satu alphabet besar, dan 
 ```
 folder=`pwd`
 
-echo Masukkan Nama File yang Diinginkan
+echo "Masukkan Nama File yang Diinginkan"
 read judul
 
 if [[ $judul =~ ^[+-]?[a-zA-Z]+$ ]];
@@ -88,7 +88,7 @@ else
 fi
 ```
 -   ``` folder=`pwd` ``` untuk menunjukkan di direktori mana sekarang
--   ``` echo Masukkan Nama File yang Diinginkan ``` untuk menamai file sesuai yang diinginkan
+-   ``` echo "Masukkan Nama File yang Diinginkan" ``` untuk menamai file sesuai yang diinginkan
 -   ``` if [[ $judul =~ ^[+-]?[a-zA-Z]+$ ]]; ``` untuk memastikan judul hanya terdiri dari alphabet
 -   ``` then echo "$password" >> $folder/$judul.txt ```, jika nama file hanya terdiri dari alphabet maka file akan disimpan sesuai nama yang diinginkan dan tersimpan dalam extensi .txt
 -   ``` else echo "Maaf tidak bisa, file hanya dinamai dengan format alphabet" ```, jika nama file tidak terdiri hanya alphabet maka file tidak akan tersimpan dan akan mengeluarkan output “Maaf tidak bisa, file hanya dinamai dengan format alphabet”
