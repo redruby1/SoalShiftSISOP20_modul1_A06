@@ -40,6 +40,64 @@ awk -F'\t' '{if($13=="Central" && ($11=="Texas" || $11=="Illinois")) a[$17]+=$21
 
 > Full code [soal1.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal1/soal1.sh)
 
+## Soal 2
+Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilangan data-data penting. Untuk mencegah kejadian yang sama terulang kembali mereka meminta bantuan kepada Whits karena dia adalah seorang yang punya banyak ide. Whits memikirkan sebuah ide namun dia meminta bantuan kalian kembali agar ide tersebut cepat diselesaikan.
+Idenya adalah kalian
+
+**a. Membuat sebuah script bash yang dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf besar, huruf kecil, dan angka**
+
+```
+password = $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+
+re=[0-9a-zA-Z]+
+
+while ! [[ "password" =~ ${re} ]]
+do
+ password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+done
+```
+
+ - Misal variable dari password yang akan dibuat adalah ‘password’ maka variable ‘password’ akan menyimpan hasil password yang sudah dirandom dari program ketika dijalankan
+ - ``` $(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)  ``` untuk merandom password sesuai kriteria yang diinginkan
+ -- ``` cat /dev/urandom ``` untuk merandom passwordnya
+ -- ``` tr -dc 'a-zA-Z0-9' ``` untuk membuat password yang terdiri dari alphabet kecil a-z, alphabet besar A-Z, dan angka 0-9
+ -- ``` fold -w 28 ``` untuk membuat password dengan jumlah 28 digit
+ -- ``` head -n 1 ``` untuk menghasilkan password hanya sebanyak 1
+ - Memastikan bahwa password pasti terdiri dari minimal satu alphabet kecil, satu alphabet besar, dan satu angka
+ ``` 
+enter code herere=[0-9a-zA-Z]+
+ 
+while ! [[ "password" =~ ${re} ]]
+do
+	password=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1)
+done
+```
+Jika password belum teridiri dari satu alphabet kecil, satu alphabet besar, dan satu angka, maka variable ‘password’ akan di loop lagi sampai mendapatkan satu huruf kecil, satu huruf besar, dan satu angka
+
+**b. Password acak tersebut disimpan pada file berekstensi .txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet**
+```
+folder=`pwd`
+
+echo Masukkan Nama File yang Diinginkan
+read judul
+
+if [[ $judul =~ ^[+-]?[a-zA-Z]+$ ]];
+	then echo "$password" >> $folder/$judul.txt
+else 
+	echo "Maaf tidak bisa, file hanya dinamai dengan format alfabet"
+fi
+```
+-   ``` folder=`pwd` ``` untuk menunjukkan di direktori mana sekarang
+-   ``` echo Masukkan Nama File yang Diinginkan ``` untuk menamai file sesuai yang diinginkan
+-   ``` if [[ $judul =~ ^[+-]?[a-zA-Z]+$ ]]; ``` untuk memastikan judul hanya terdiri dari alphabet
+-   ``` then echo "$password" >> $folder/$judul.txt ```, jika nama file hanya terdiri dari alphabet maka file akan disimpan sesuai nama yang diinginkan dan tersimpan dalam extensi .txt
+-   ``` else echo "Maaf tidak bisa, file hanya dinamai dengan format alphabet" ```, jika nama file tidak terdiri hanya alphabet maka file tidak akan tersimpan dan akan mengeluarkan output “Maaf tidak bisa, file hanya dinamai dengan format alphabet”
+
+**c. Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan di enkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal: password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28, maka akan menjadi huruf b.) dan**
+
+**d. Jangan lupa untuk membuat dekripsinya supaya nama file bisa kembali**
+
+> Full code [soal2.sh](https://github.com/redruby1/SoalShiftSISOP20_modul1_A06/blob/master/soal2/soal2.sh)
 
 ## Soal 3
 **a. Buatlah script untuk mendownload 28 gambar dari "https://loremflickr.com/320/240/cat" menggunakan command wget dan menyimpan file dengan nama "pdkt_kusuma_NO" (contoh: pdkt_kusuma_1, pdkt_kusuma_2, pdkt_kusuma_3) serta jangan lupa untuk menyimpan log messages wget kedalam sebuah file "wget.log"**
